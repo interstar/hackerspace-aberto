@@ -25,7 +25,7 @@ import telebot   ## https://github.com/eternnoir/pyTelegramBotAPI
 TOKEN = ''       ## Token gerado pelo http://telegram.me/botfather
 bot = telebot.TeleBot(TOKEN,True,4)
 
-
+### API do Status
 def status_atual():
     """Verifica no site o status atual (aberto ou fechado)"""
     return wiki.conteudo_pagina("status")
