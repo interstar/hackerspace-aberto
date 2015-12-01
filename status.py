@@ -13,10 +13,18 @@
        usuário, atualiza o site com a informação do usuário.
 """
 
-import urwid
+### WIKI Lib
 from wiki_api import CalangoWiki
-
 wiki = CalangoWiki()
+
+### GUI Lib
+import urwid
+
+### Bot Lib
+import telebot   ## https://github.com/eternnoir/pyTelegramBotAPI
+TOKEN = ''       ## Token gerado pelo http://telegram.me/botfather
+bot = telebot.TeleBot(TOKEN,True,4)
+
 
 def status_atual():
     """Verifica no site o status atual (aberto ou fechado)"""
@@ -27,7 +35,14 @@ def muda_status(status):
     """Atualiza a wiki com o status selecionado"""
     # TODO Verificar o status atual antes para evitar atualização desnecessária
     wiki.atualiza_pagina('status', status)
+    
+    chatid = '-10265914'   # Id do Grupo do Calango Hacker Clube no Telegram
+    mensagem = '#Status: ' # Hashtag para facilitar a busca no Telegram
+    tb.send_message(chatid, mensagem+status)
+    
 
+
+### GUI ###########################################################
 
 def cria_menu(título, opções):
     """Interface do Urwid"""
@@ -55,6 +70,7 @@ def escolhe_opção(botão, escolha):
             urwid.Pile([response,
                         urwid.AttrMap(botao_ok, None,
                                       focus_map='reversed')]))
+
 
 
 def reinicia(button):
